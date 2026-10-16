@@ -718,20 +718,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5d0866b7f69134bbd273bbddd49653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  player: {fileID: 544890545}
-  targetOffset: {x: 0, y: 1.6, z: 0}
-  distance: 5
-  minDistance: 1
-  mouseSensitivity: 3
-  minPitch: -30
-  maxPitch: 60
-  followSmoothTime: 0.05
-  rotatePlayerWithCamera: 1
-  lockCursor: 1
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  collisionRadius: 0.3
+  target: {fileID: 0}
+  offset: {x: 0, y: 4, z: -7}
+  smoothTime: 0.3
+  lookAhead: 0.35
 --- !u!1 &343854663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,11 +1139,11 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBuffer: 0.12
   cam: {fileID: 330585546}
-  feet: {fileID: 0}
+  feet: {fileID: 1091004287}
   checkRadius: 0.2
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
 --- !u!54 &544890547
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1939,6 +1929,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020641527}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1091004286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091004287}
+  m_Layer: 0
+  m_Name: Feet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1091004287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091004286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 544890545}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1126280000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3420,7 +3441,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2081926404032301781, guid: 3507cda1286c2bb409af4b94f85ca4fb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1091004287}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2022501631257690279, guid: 3507cda1286c2bb409af4b94f85ca4fb, type: 3}
       insertIndex: -1
