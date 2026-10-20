@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 5f;
     public float jumpForce = 6f, fallMultiplier = 2.2f;
     public float coyoteTime = 0.1f, jumpBuffer = 0.12f;
-    public float turnSpeed = 180f;            // degrees per second (Q / E)
+    public float turnSpeed = 180f;            
     Rigidbody rb;
     bool isGrounded, jumpQueued;
     float lastGroundedTime = -1f, lastPressedTime = -1f;
@@ -16,11 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float checkRadius = 0.2f;
     [SerializeField] LayerMask groundMask;
 
-    // ---------- Unity lifecycle ----------
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        // freeze only X and Z so MoveRotation can still turn the player on Y
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         yaw = rb.rotation.eulerAngles.y;
@@ -34,7 +32,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Q)) turn -= 1f;
         yaw += turn * turnSpeed * Time.deltaTime;
 
-        if (isGrounded && !jumpQueued && rb.linearVelocity.y <= 0f)
+        if (isGrounded && !jumpQueued)
             lastGroundedTime = Time.time;
         if (Input.GetKeyDown(KeyCode.Space))
             lastPressedTime = Time.time;
@@ -56,7 +54,7 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxis("Vertical");
         Vector3 move = new Vector3(h, 0, v);
         move = Vector3.ClampMagnitude(move, 1f) * speed;
-        move = Quaternion.Euler(0f, yaw, 0f) * move;   // WASD relative to where the player faces
+        move = Quaternion.Euler(0f, yaw, 0f) * move; 
         rb.linearVelocity = new Vector3(
             move.x, rb.linearVelocity.y, move.z);
 
@@ -66,13 +64,13 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector3(vel.x, 0f, vel.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpQueued = false;
+            isGrounded = false;
         }
         if (rb.linearVelocity.y < 0f)
             rb.AddForce(Physics.gravity * (fallMultiplier - 1f),
                         ForceMode.Acceleration);
     }
 
-    // ---------- Collision callbacks ----------
     void OnCollisionStay(Collision c)
     {
         if (c.GetContact(0).normal.y > 0.5f)
@@ -81,7 +79,6 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionExit(Collision c) => isGrounded = false;
 
-    // ---------- Ground check + gizmo ----------
     bool IsGrounded() =>
         Physics.CheckSphere(feet.position, checkRadius, groundMask);
 

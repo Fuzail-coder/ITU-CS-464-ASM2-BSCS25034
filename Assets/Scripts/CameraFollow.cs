@@ -4,8 +4,8 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform target;
     public Vector3 offset = new Vector3(0, 4, -7);
-    public float smoothTime = 0.3f;           // about the time to catch up
-    Vector3 velocity;                         // SmoothDamp's memory
+    public float smoothTime = 0.3f;           
+    Vector3 velocity;                         
 
     void LateUpdate()
     {
