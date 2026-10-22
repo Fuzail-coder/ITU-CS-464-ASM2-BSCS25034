@@ -6,3 +6,7 @@ In this I applied Cyote.
 https://drive.google.com/file/d/1PQ5nyuSo5ka42yqVmW1lMc5f2S3P4Y2V/view?usp=sharing
 Q and E for player Rotation
 WASD for movement.
+Jumping hop object is 4x4
+Capsule is 2x1
+distance in the arena jump is 3m 
+my player jumps to 3m distance
